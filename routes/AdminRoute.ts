@@ -1,10 +1,10 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import { CreateVandor, GetVandorByID, GetVandors } from '../controllers/AdminController';
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.json({ message: 'Hello World' });
-})
-
+router.post('/vandor', CreateVandor);
+router.get('/vandor', GetVandors);
+router.get('vandor/:id', GetVandorByID);
 
 export { router as AdminRoute }
