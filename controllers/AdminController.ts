@@ -1,17 +1,22 @@
-import { resolveSoa } from 'dns';
 import { Request, Response, NextFunction } from 'express';
 import { CreateVandorInput } from '../dto';
 import { Vandor } from '../models';
-import { GeneratePassword, GenrateSalt } from '../utility'
+import { GeneratePassword, GenrateSalt } from '../utility';
+
+export const FindVandor = async (id: string | undefined, email?: string) => {
+    if (email) {
+        return await Vandor.findOne({ email: email })
+    } else {
+        return await Vandor.findById(id);
+    }
+}
 
 
 export const CreateVandor = async (req: Request, res: Response, next: NextFunction) => {
 
-    console.log("create vandor")
-
     const { name, address, pincode, foodType, email, password, ownerName, phone } = <CreateVandorInput>req.body;
 
-    const existingVandor = await Vandor.findOne({ email: email })
+    const existingVandor = FindVandor('',email)
 
     if(existingVandor !== null) {
         return res.json({ message: 'A vandor is existing with this email' })
