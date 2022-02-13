@@ -8,7 +8,7 @@ interface VandorDocument extends Document {
     address: string;
     phone: string;
     email: string;
-    passowrd: string;
+    password: string;
     salt: string;
     serviceAvailable: boolean;
     coverImages: [string];
